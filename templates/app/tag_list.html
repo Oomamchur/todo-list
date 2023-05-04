@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="m-0">Tags:</h1>
+
+    <a href="{% url 'app:tag-create' %}" class="btn btn-primary ml-auto">
+      Add Tag
+    </a>
+  </div>
+  {% if tag_list %}
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Update</th>
+        <th>Delete</th>
+      </tr>
+      {% for tag in tag_list %}
+        <tr>
+          <td>
+              {{ tag }}
+          </td>
+          <td>
+            <a class="btn btn-info" href="{% url 'app:tag-update' pk=tag.id %}">Update</a>
+          </td>
+          <td>
+            <a class="btn btn-danger" href="{% url 'app:tag-delete' pk=tag.id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+      <p>There are no manufacturers in the service.</p>
+  {% endif %}
+{% endblock %}

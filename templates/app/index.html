@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="d-flex justify-content-between align-items-center">
+    <h1 class="m-0">To Do List:</h1>
+    <a href="{% url 'app:task-create' %}" class="btn btn-primary ml-auto">
+      Add Task
+    </a>
+  </div>
+    <ol>
+      {% for task in task_list %}
+      <li>
+        <div class="justify-content-between align-items-center">
+          <h4 class="d-flex">{{ task }}
+            {% if task.is_done %}
+                <div class="d-flex ml-3" style="color: green">Done</div>
+            {% else %}
+                <div class="d-flex ml-3" style="color: red">Not Done</div>
+            {% endif %}
+          <form action="{% url 'app:index' %}" method="post" class="ml-auto">
+            {% csrf_token %}
+            <input type="hidden" name="task_id" value="{{ task.id }}">
+            {% if task.is_done %}
+                <input class="btn btn-warning" type="submit" value="Undo">
+            {% else %}
+                <input class="btn btn-success" type="submit" value="Complete">
+            {% endif %}
+          </form>
+          </h4>
+        </div>
+
+
+        <h5>Created at: {{ task.datetime }}
+        {% if task.deadline %}
+          Deadline at: {{ task.deadline }}
+        {% endif %}
+        </h5>
+        <h6>Tags:
+          {% for tag in task.tags.all %}
+            {{ tag.name }}
+          {% endfor %}
+        </h6>
+        <a href="{% url 'app:task-update' pk=task.id %}">Update</a>
+        <a href="{% url 'app:task-delete' pk=task.id %}">Delete</a>
+      </li>
+
+
+    {% endfor %}
+    </ol>
+
+
+
+
+
+
+{% endblock %}

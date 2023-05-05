@@ -20,6 +20,7 @@ class ModelsTests(TestCase):
 class FormsTest(TestCase):
     def setUp(self) -> None:
         self.tag = Tag.objects.create(name="test")
+
     def test_task_creation_form_is_valid(self) -> None:
         form_data = {
             "content": "Title",
@@ -34,6 +35,7 @@ class FormsTest(TestCase):
 
         self.assertTrue(is_valid)
         self.assertEqual(new_task.content, form_data["content"])
+
     def test_task_creation_form_is_not_valid(self) -> None:
         form_data = {
             "is_done": True,

@@ -12,7 +12,7 @@ Link:
 Python 3 should be installed
 
     git clone https://github.com/rakamakaphone/todo-list
-    cd friends-imdb
+    cd todo-list
     python -m venv venv
     source venv\Scripts\activate
     pip install -r requirements.txt
